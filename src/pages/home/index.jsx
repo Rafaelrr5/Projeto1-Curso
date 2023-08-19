@@ -16,13 +16,13 @@ export const Home = () => {
   const noMorePosts = page + postsPerPage >= allPosts.length;
 
   const filteredPosts = !!searchValue ?
-  //Com valor, filtra todos os posts que tem o título igual ao q foi digitado no searchValue 
+  //With value, filter every post that has the same title that was typed on searchValue
   allPosts.filter(post => {
     return post.title.toLowerCase().includes(
       searchValue.toLowerCase()
       )
   })
-  //Sem valor, retorna posts normal
+  //Sem valor, return posts normal
   : posts
 
    const handleLoadPosts = useCallback(async (page, postsPerPage) => {
@@ -32,7 +32,7 @@ export const Home = () => {
   }, []);
 
   const loadMorePosts = () => {
-    
+
     const nextPage = page + postsPerPage;
     const nextPosts = allPosts.slice(nextPage, (nextPage+postsPerPage))
     posts.push(...nextPosts)
@@ -49,11 +49,11 @@ export const Home = () => {
   useEffect(() => {
     handleLoadPosts(0, postsPerPage)
   }, [handleLoadPosts, postsPerPage])
-  
+
   return (
     <section className="container">
       <div className="search-container">
-        {/*Se isso for true, faça isso:*/}
+        {/*if true, do that:*/}
         {!!searchValue && (
             <h1>Search Value: {searchValue}</h1>
         )}
@@ -62,15 +62,15 @@ export const Home = () => {
 
        {filteredPosts.length > 0 && (
          <Posts posts={filteredPosts} />
-       )} 
+       )}
 
        {filteredPosts.length === 0 && (
          <p>Não existem posts com este título :(</p>
-       )} 
+       )}
 
       <div className="button-container">
         {!searchValue && (
-          <Button 
+          <Button
           text="load more posts"
           onClick={loadMorePosts}
           disabled={noMorePosts}
